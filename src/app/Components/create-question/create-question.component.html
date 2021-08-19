@@ -1,0 +1,43 @@
+
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+    <div id="login">
+        
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <form id="login-form" class="form" #userform="ngForm" (ngSubmit)="addNewQuestion()">
+                            <h3 class="text-center text-info">Create Quesion</h3>
+                            <div class="form-group">
+                                <label for="BodyText" class="text-info">BodyText:</label><br>
+                                <textarea class="form-control"  [class.is-invalid]="BodyText.invalid && BodyText.touched " [class.is-invalid]="BodyText.invalid && BodyText.touched " required #BodyText="ngModel" [(ngModel)]="question.BodyText" name="BodyText"></textarea>
+                            </div>
+                            <div class="form-group" >
+                                <label for="JobPositionID" class="text-info">JobPosition</label><br>
+                                <select class="form-control"  (change)="addJobPstionID($event)" >
+                                    <option *ngFor="let jobpostion of jobPostions" value="{{jobpostion.id}}">
+                                        {{jobpostion.title}}
+                                    </option>
+                                </select> 
+                            </div>
+                           
+                            <div class="form-group">
+                                <input type="submit" type="submit" [disabled]="!userform.valid" name="submit" class="btn btn-info btn-md" value="Add">
+                            </div>
+                            <br>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+        
+    
+    
