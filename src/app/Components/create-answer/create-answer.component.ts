@@ -24,11 +24,12 @@ export class CreateAnswerComponent implements OnInit {
   IsCorrect(iscorrect:any)
   {
 
+    console.log("ddd")
     if(iscorrect.target.value=="false")
     {
       this.answer.isCorrect=false;
     }
-    else
+    else 
     {
       this.answer.isCorrect=true;
     }
