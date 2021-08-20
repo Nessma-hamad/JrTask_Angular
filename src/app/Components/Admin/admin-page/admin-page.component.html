@@ -30,7 +30,9 @@
       <div class="sidebar-brand">
         <a href="#">Welcome</a>
         <div id="close-sidebar">
-          <i class="fas fa-times"></i>
+          <a (click)="LogOut()">
+           logout <i class="fa fa-power-off"></i>
+          </a>
         </div>
       </div>
       <div class="sidebar-header">
@@ -38,6 +40,7 @@
         <div class="user-info">
           <span class="user-name">
             <strong>{{adminName}}</strong>
+            
           </span>
           <span class="user-role">Administrator</span>
          
@@ -85,9 +88,7 @@
     <!-- sidebar-content  -->
     <div class="sidebar-footer">
      
-      <a (click)="LogOut()">
-        <i class="fa fa-power-off"></i>
-      </a>
+      
     </div>
   </nav>
   <!-- sidebar-wrapper  -->
