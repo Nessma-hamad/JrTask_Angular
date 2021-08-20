@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { JobPosition } from 'src/app/Models/JobPosition';
 import { Question } from 'src/app/Models/Question';
 import { AnswerService } from 'src/app/services/answer.service';
+import { JobPositionService } from 'src/app/services/job-position.service';
 import { QuestionService } from 'src/app/services/question.service';
 
 @Component({
@@ -14,7 +16,8 @@ export class ViewJobPostionQuestionsComponent implements OnInit {
   jobPostionQuestions:Question[]=[]
   jobPostionID:number=0
   QuestionAmswers:any[]=[]
-  constructor(private activatedRoute:ActivatedRoute,private questionService:QuestionService,private answerService:AnswerService) { }
+  jobPostion=new JobPosition(0,'')
+  constructor(private activatedRoute:ActivatedRoute,private questionService:QuestionService,private answerService:AnswerService,private jobPostionService:JobPositionService) { }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params:ParamMap)=>
@@ -28,6 +31,11 @@ export class ViewJobPostionQuestionsComponent implements OnInit {
         data.forEach(question => {
           this.getQuestionAnswers(question.id)
         });
+      }
+    )
+    this.jobPostionService.getJobPositionById(this.jobPostionID).subscribe(
+      data=>{
+        this.jobPostion=data
       }
     )
   }
