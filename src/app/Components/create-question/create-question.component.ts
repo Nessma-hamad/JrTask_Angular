@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { JobPosition } from 'src/app/Models/JobPosition';
 import { Question } from 'src/app/Models/Question';
 import { JobPositionService } from 'src/app/services/job-position.service';
@@ -13,32 +13,37 @@ import { QuestionService } from 'src/app/services/question.service';
 export class CreateQuestionComponent implements OnInit {
 
   question=new Question(0,'',0);
+  lastquestion=new Question(0,'',0);
   jobPostions:JobPosition[]=[];
   
-  constructor(private questionService:QuestionService,private jobPostionservice:JobPositionService,private router: Router) { }
+  
+  constructor(private activatedRoute:ActivatedRoute,private questionService:QuestionService,private jobPostionservice:JobPositionService,private router: Router) { }
 
   ngOnInit(): void {
     this.jobPostionservice.getAllJobPosition().subscribe(
       data=>
       {
         this.jobPostions=data;
-        console.log(this.jobPostions);
+        console.log(this.jobPostions); 
       }
     )
+    this.activatedRoute.paramMap.subscribe((params:ParamMap)=>
+    {
+      this.question.jobPositionID=parseInt(params.get('jobpostionid')!);
+    })
   }
-  addJobPstionID(jobPostionID:any)
-  {
-    console.log(jobPostionID.target.value)
-    this.question.JobPositionID=jobPostionID.target.value;
-  }
+ 
   addNewQuestion()
   {
     console.log(this.question)
+    
     this.questionService.addNewQuestion(this.question).subscribe(
       data => {
         console.log(data)
         console.log(this.question)
-        this.router.navigate(['/createanswer/'+this.question.ID]); 
+        this.lastquestion=data;
+        console.log(this.lastquestion.id);
+        this.router.navigate(['/createanswer/'+this.lastquestion.id]); 
         
       }
     )

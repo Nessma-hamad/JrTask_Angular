@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { NgForm } from '@angular/forms';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Answer } from 'src/app/Models/Answer';
 import { AnswerService } from 'src/app/services/answer.service';
 
@@ -11,19 +12,27 @@ import { AnswerService } from 'src/app/services/answer.service';
 export class CreateAnswerComponent implements OnInit {
 
   answer=new Answer(0,'',false,0)
-  constructor(private activatedRoute:ActivatedRoute,private answerService:AnswerService) { }
+  constructor(private activatedRoute:ActivatedRoute,private answerService:AnswerService,private router: Router) { }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params:ParamMap)=>
     {
-      this.answer.QuestionID=parseInt(params.get('questionid')!);
+      this.answer.questionID=parseInt(params.get('questionid')!);
     })
   }
 
   IsCorrect(iscorrect:any)
   {
 
-    this.answer.IsCorrect=iscorrect.target.value;
+    if(iscorrect.target.value=="false")
+    {
+      this.answer.isCorrect=false;
+    }
+    else
+    {
+      this.answer.isCorrect=true;
+    }
+    
   }
   
 
@@ -35,6 +44,20 @@ export class CreateAnswerComponent implements OnInit {
       data=>
       {
         console.log(data);
+        this.router.navigate(['/adminpage']); 
+      }
+    )
+  }
+  addAnthorAnswer()
+  {
+    console.log(this.answer)
+    this.answerService.addNewanswer(this.answer).subscribe(
+      data=>
+      {
+        console.log(data);
+        this.router.navigateByUrl('/',{skipLocationChange:true}).then(()=>
+        this.router.navigate(['/createanswer/'+this.answer.questionID]))
+        console.log("sss")
       }
     )
   }

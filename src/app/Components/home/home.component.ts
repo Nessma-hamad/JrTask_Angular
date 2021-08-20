@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { JobPosition } from 'src/app/Models/JobPosition';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { JobPositionService } from 'src/app/services/job-position.service';
 
 @Component({
   selector: 'app-home',
@@ -9,18 +11,26 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class HomeComponent implements OnInit {
   loggedIn:boolean=false;
-  constructor(private authService:AuthenticationService,private router: Router) { }
+  jobPostions:JobPosition[]=[]
+  constructor(private authService:AuthenticationService,private router: Router,private jobPostionService:JobPositionService) { }
 
   ngOnInit(): void {
     this.loggedIn=this.authService.isLoggedIn();
+    this.jobPostionService.getAllJobPosition().subscribe(
+      data=>
+      {
+        this.jobPostions=data;
+        console.log(this.jobPostions)
+      }
+    )
   }
   LogOut()
 {
    this.authService.logout();
 }
-makeReserve()
+mackInterview(jobpostionID:number)
 {
-  this.router.navigate(['/createreverve']);
+  this.router.navigate(['/createcandidate/'+jobpostionID]);
 }
 
 }

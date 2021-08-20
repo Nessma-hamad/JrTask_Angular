@@ -43,6 +43,12 @@ export class QuestionService {
       return throwError(err.message || "Internal Server error contact site adminstarator");
     }));
   }
+  getAllJobPostionQuestionsById(jobPostionid: number): Observable<Question[]> {
+    let url = `http://localhost:32784/AllJobPositionQuestions?JobPostionID=${jobPostionid}`;
+    return this.http.get<Question[]>(url).pipe(catchError((err) => {
+      return throwError(err.message || "Internal Server error contact site adminstarator");
+    }));
+  }
   getQuestionById(id: number): Observable<Question> {
     let url = `http://localhost:32784/api/Questions/${id}`;
     return this.http.get<Question>(url).pipe(catchError((err) => {

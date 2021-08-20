@@ -11,18 +11,21 @@
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-column" class="col-md-6">
                     <div id="login-box" class="col-md-12">
-                        <form id="login-form" class="form" #userform="ngForm" (ngSubmit)="addNewQuestion()">
-                            <h3 class="text-center text-info">Create Quesion</h3>
+                        <form id="login-form" class="form" #userform="ngForm" (ngSubmit)="addNewCandidate()">
+                            <h5 class="text-center text-info">Enter New Candidate</h5>
+                            <br>
+                            <br>
                             <div class="form-group">
-                                <label for="BodyText" class="text-info">BodyText:</label><br>
-                                <textarea class="form-control"  [class.is-invalid]="BodyText.invalid && BodyText.touched " [class.is-invalid]="BodyText.invalid && BodyText.touched " required #BodyText="ngModel" [(ngModel)]="question.bodyText" name="BodyText"></textarea>
+                                <label for="BodyText" class="text-info">Candidate Name:</label><br>
+                                <input type="text" class="form-control"  [class.is-invalid]="name.invalid && name.touched " [class.is-invalid]="name.invalid && name.touched " required #name="ngModel" [(ngModel)]="newCandidate.name" name="name">
+
                             </div>
                             
-                           
+                            
                             <div class="form-group">
-                                <input type="submit" type="submit" [disabled]="!userform.valid" name="submit" class="btn btn-info btn-md" value="Add Question Answers">
+                                <input type="submit" type="submit" [disabled]="!userform.valid" name="submit" class="btn btn-info btn-md" value="Start Interview">
                             </div>
-                            <br>
+                            
                             
                         </form>
                     </div>
@@ -31,6 +34,5 @@
         </div>
     </div>
    
-        
-    
+       
     

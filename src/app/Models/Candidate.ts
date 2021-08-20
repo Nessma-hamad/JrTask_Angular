@@ -1,7 +1,8 @@
-export class Question{
+export class Candidate{
     constructor(
         public id:number,
-        public bodyText:string,
+        public name:string,
         public jobPositionID:number
-    ){}
-}
+    )
+    {}
+} 

@@ -1,9 +1,9 @@
 export class Answer{
     constructor(
         public ID:number,
-        public BodyText:string,
-        public IsCorrect:boolean,
-        public QuestionID:number
+        public bodyText:string,
+        public isCorrect:boolean,
+        public questionID:number
     )
     {
        
