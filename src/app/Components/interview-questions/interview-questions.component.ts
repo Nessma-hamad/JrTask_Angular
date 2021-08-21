@@ -71,16 +71,17 @@ export class InterviewQuestionsComponent implements OnInit {
   {
     let answer=new CandidateAnswer(0,questionID,questionBodyText,answerBodyText,IsCorrect,this.candidateID)
     this.candidateAnswers.push(answer);
-    if(IsCorrect==true)
-    {
-      this.candidateScore+=10;
-    }
+    
     console.log(this.candidateScore);
 
   }
   getCandidateResult()
   {
     this.candidateAnswers.forEach(answer => {
+      if(answer.isCorrect==true)
+    {
+      this.candidateScore+=10;
+    }
       this.candidateAnswerService.addNewCandidateAnswer(answer).subscribe(
         data=>
         {
